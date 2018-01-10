@@ -14,11 +14,12 @@
  *
  */
 metadata {
-	definition (name: "MQTT Garage Door Opener", namespace: "stj", author: "Carlos Ravelo") {
+	definition (name: "MQTT Garage Door Opener", namespace: "gandazgul", author: "Carlos Ravelo") {
 		capability "Actuator"
 		capability "Door Control"
         capability "Garage Door Control"
 		capability "Refresh"
+        capability "Switch"
 
         command "setStatus"
 	}
@@ -54,9 +55,13 @@ def open() {
 	sendEvent(name: "door", value: "opening")
 }
 
+def on() { this.open(); }
+
 def close() {
     sendEvent(name: "door", value: "closing")
 }
+
+def off() { this.close(); }
 
 def setStatus(type, status) {
 	log.debug("Setting status ${status}")
