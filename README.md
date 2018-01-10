@@ -7,4 +7,4 @@ You'll need to use this: https://github.com/stjohnjohnson/smartthings-mqtt-bridg
 
 ## License
 
-[MIT](https://github.com/gandazgul/mqtt-smartthings-devices/blob/master/LICENSE)
+[Apache 2.0](https://github.com/gandazgul/mqtt-smartthings-devices/blob/master/LICENSE)
