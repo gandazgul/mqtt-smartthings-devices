@@ -14,37 +14,37 @@
  *
  */
 metadata {
-	definition (name: "MQTT Garage Door Opener", namespace: "gandazgul", author: "Carlos Ravelo") {
-		capability "Actuator"
-		capability "Door Control"
+    definition (name: "MQTT Garage Door Opener", namespace: "gandazgul", author: "Carlos Ravelo") {
+        capability "Actuator"
+        capability "Door Control"
         capability "Garage Door Control"
-		capability "Refresh"
+        capability "Refresh"
         capability "Switch"
 
         command "setStatus"
-	}
+    }
 
-	simulator {
+    simulator {
 
-	}
+    }
 
-	tiles {
-		standardTile("toggle", "device.door", width: 2, height: 2) {
-			state("closed", label:'${name}', action:"door control.open", icon:"st.doors.garage.garage-closed", backgroundColor:"#00A0DC", nextState:"opening")
-			state("open", label:'${name}', action:"door control.close", icon:"st.doors.garage.garage-open", backgroundColor:"#e86d13", nextState:"closing")
-			state("opening", label:'${name}', icon:"st.doors.garage.garage-closed", backgroundColor:"#e86d13")
-			state("closing", label:'${name}', icon:"st.doors.garage.garage-open", backgroundColor:"#00A0DC")
-		}
-		standardTile("open", "device.door", inactiveLabel: false, decoration: "flat") {
-			state "default", label:'open', action:"door control.open", icon:"st.doors.garage.garage-opening"
-		}
-		standardTile("close", "device.door", inactiveLabel: false, decoration: "flat") {
-			state "default", label:'close', action:"door control.close", icon:"st.doors.garage.garage-closing"
-		}
+    tiles {
+        standardTile("toggle", "device.door", width: 2, height: 2) {
+            state("closed", label:'${name}', action:"door control.open", icon:"st.doors.garage.garage-closed", backgroundColor:"#00A0DC", nextState:"opening")
+            state("open", label:'${name}', action:"door control.close", icon:"st.doors.garage.garage-open", backgroundColor:"#e86d13", nextState:"closing")
+            state("opening", label:'${name}', icon:"st.doors.garage.garage-closed", backgroundColor:"#e86d13")
+            state("closing", label:'${name}', icon:"st.doors.garage.garage-open", backgroundColor:"#00A0DC")
+        }
+        standardTile("open", "device.door", inactiveLabel: false, decoration: "flat") {
+            state "default", label:'open', action:"door control.open", icon:"st.doors.garage.garage-opening"
+        }
+        standardTile("close", "device.door", inactiveLabel: false, decoration: "flat") {
+            state "default", label:'close', action:"door control.close", icon:"st.doors.garage.garage-closing"
+        }
 
-		main "toggle"
-		details(["toggle", "open", "close"])
-	}
+        main "toggle"
+        details(["toggle", "open", "close"])
+    }
 }
 
 def parse(String description) {
@@ -52,7 +52,7 @@ def parse(String description) {
 }
 
 def open() {
-	sendEvent(name: "door", value: "opening")
+    sendEvent(name: "door", value: "opening")
 }
 
 def on() { this.open(); }
@@ -64,6 +64,6 @@ def close() {
 def off() { this.close(); }
 
 def setStatus(type, status) {
-	log.debug("Setting status ${status}")
+    log.debug("Setting status ${status}")
     sendEvent(name: "door", value: status)
 }
