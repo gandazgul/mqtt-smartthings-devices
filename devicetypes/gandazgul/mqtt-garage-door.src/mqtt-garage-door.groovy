@@ -14,7 +14,7 @@
  *
  */
 metadata {
-    definition (name: "MQTT Garage Door Opener", namespace: "gandazgul", author: "Carlos Ravelo") {
+    definition (name: "MQTT Garage Door", namespace: "gandazgul", author: "Carlos Ravelo") {
         capability "Actuator"
         capability "Door Control"
         capability "Garage Door Control"
