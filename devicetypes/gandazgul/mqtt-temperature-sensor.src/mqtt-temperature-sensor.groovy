@@ -62,7 +62,7 @@ metadata {
 			state "humidity", label:'${currentValue}%', unit:""
 		}
 
-        valueTile("deviceHealth", "device.healthStatus", decoration: "flat", width: 2, height: 2, inactiveLabel: false) {
+        valueTile("deviceHealth", "device.healthStatus", decoration: "flat", inactiveLabel: false) {
             state "online",  label: "ONLINE", backgroundColor: "#00A0DC", icon: "st.Health & Wellness.health9", defaultState: true
             state "offline", label: "OFFLINE", backgroundColor: "#E86D13", icon: "st.Health & Wellness.health9"
         }
