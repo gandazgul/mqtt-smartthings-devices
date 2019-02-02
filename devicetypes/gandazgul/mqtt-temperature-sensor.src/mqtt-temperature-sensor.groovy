@@ -68,7 +68,7 @@ metadata {
         }
 
 		main(["temperature", "humidity"])
-		details(["temperature", "humidity"])
+		details(["temperature", "humidity", "deviceHealth"])
 	}
 }
 
