@@ -125,7 +125,7 @@ def temperature(newTemp) {
 }
 
 def humidity(humidityValue) {
-    log.trace("Setting humidity: $humidityValue")`
+    log.trace("Setting humidity: $humidityValue")
 
     if (humidityValue != null) {
         Integer hum = boundInt(humidityValue, (0..100))
