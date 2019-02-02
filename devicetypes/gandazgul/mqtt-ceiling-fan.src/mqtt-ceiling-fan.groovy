@@ -117,16 +117,16 @@ def setLevel(double val) {
     sendEvent(name: "level", value: val)
 }
 
-    def setStatus(type, status) {
-        log.debug("Setting status ${type}: ${status}")
-        // Yes, this is calling the method dynamically
-        if (type == "level") {
-            setLevel(Float.parseFloat(status));
-        }
-        else {
-            sendEvent(name: type, value: status)
-        }
+def setStatus(type, status) {
+    log.debug("Setting status ${type}: ${status}")
+    // Yes, this is calling the method dynamically
+    if (type == "level") {
+        setLevel(Float.parseFloat(status));
     }
+    else {
+        sendEvent(name: type, value: status)
+    }
+}
 
 def lowSpeed() {
     sendEvent(name: "button", value: "adjusting.low")
