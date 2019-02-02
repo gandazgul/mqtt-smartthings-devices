@@ -106,7 +106,7 @@ private setDeviceHealth(String healthState) {
 
 private Integer getTemperature() {
     def ts = device.currentState("temperature")
-    Integer currentTemp
+    Integer currentTemp = null
     try {
         currentTemp = ts.integerValue
     } catch (all) {
@@ -116,7 +116,7 @@ private Integer getTemperature() {
     return currentTemp
 }
 
-def temperature(def newTemp) {
+def temperature(newTemp) {
     log.trace("Setting temparature: $newTemp")
 
     sendEvent(name:"temperature", value: newTemp)
@@ -124,7 +124,7 @@ def temperature(def newTemp) {
     done()
 }
 
-def humidity(def humidityValue) {
+def humidity(humidityValue) {
     log.trace("Setting humidity: $humidityValue")`
 
     if (humidityValue != null) {
