@@ -20,8 +20,8 @@ metadata {
         capability "Sensor"
         capability "Health Check"
 
-        command "setTemperature", ["number"]
-        command "setHumidityPercent", ["number"]
+        command "temperature", ["number"]
+        command "humidity", ["number"]
 
         command "markDeviceOnline"
         command "markDeviceOffline"
@@ -117,6 +117,27 @@ private Integer getTemperature() {
     return currentTemp
 }
 
+def temperature(newTemp) {
+    sendEvent(name:"temperature", value: newTemp)
+}
+
+def humidity(Integer humidityValue) {
+    log.trace "Executing 'setHumidityPercent' to $humidityValue"
+
+    Integer curHum = device.currentValue("humidity") as Integer
+
+    if (humidityValue != null) {
+        Integer hum = boundInt(humidityValue, (0..100))
+        if (hum != humidityValue) {
+            log.warn "Corrrected humidity value to $hum"
+            humidityValue = hum
+        }
+        sendEvent(name: "humidity", value: humidityValue, unit: "%")
+    } else {
+        log.warn "Could not set measured huimidity to $humidityValue%"
+    }
+}
+
 private getHumidityPercent() {
     def hp = device.currentState("humidity")
 
@@ -130,6 +151,17 @@ def refresh() {
     sendEvent(name: "humidity", value: getHumidityPercent(), unit: "%")
 
     done()
+}
+
+/**
+ * Ensure an integer value is within the provided range, or set it to either extent if it is outside the range.
+ * @param Number value         The integer to evaluate
+ * @param IntRange theRange     The range within which the value must fall
+ * @return Integer
+ */
+private Integer boundInt(Number value, IntRange theRange) {
+    value = Math.max(theRange.getFrom(), Math.min(theRange.getTo(), value))
+    return value.toInteger()
 }
 
 /**
