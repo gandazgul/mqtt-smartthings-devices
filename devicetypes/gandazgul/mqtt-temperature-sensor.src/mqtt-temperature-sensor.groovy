@@ -67,8 +67,12 @@ metadata {
             state "offline", label: "OFFLINE", backgroundColor: "#E86D13", icon: "st.Health & Wellness.health9"
         }
 
+        standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+            state "default", label: "", action: "refresh", icon: "st.secondary.refresh"
+        }
+
         main(["temperature", "humidity"])
-        details(["temperature", "humidity", "deviceHealth"])
+        details(["temperature", "humidity", "deviceHealth", "refresh"])
     }
 }
 
@@ -100,6 +104,34 @@ private setDeviceHealth(String healthState) {
     sendEvent(name: "healthStatus", value: healthState)
 }
 
+private Integer getTemperature() {
+    def ts = device.currentState("temperature")
+    Integer currentTemp = DEFAULT_TEMPERATURE
+    try {
+        currentTemp = ts.integerValue
+    } catch (all) {
+        log.warn "Encountered an error getting Integer value of temperature state. Value is '$ts.stringValue'."
+        sendEvent(name: "temperature", value: null, unit: "°F")
+    }
+
+    return currentTemp
+}
+
+private getHumidityPercent() {
+    def hp = device.currentState("humidity")
+
+    return hp ? hp.getIntegerValue() : null
+}
+
+def refresh() {
+    log.trace "Executing refresh"
+
+    sendEvent(name: "temperature", value: getTemperature(), unit: "°F")
+    sendEvent(name: "humidity", value: getHumidityPercent(), unit: "%")
+
+    done()
+}
+
 /**
  * Just mark the end of the execution in the log
  */
@@ -108,7 +140,7 @@ private void done() {
 }
 
 def setStatus(type, status) {
-    log.debug("Setting status ${type}: ${status}")
+    log.trace("Setting status ${type}: ${status}")
 
     sendEvent(name: type, value: status)
 
