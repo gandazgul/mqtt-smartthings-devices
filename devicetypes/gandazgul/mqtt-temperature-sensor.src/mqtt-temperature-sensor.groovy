@@ -67,12 +67,12 @@ metadata {
             state "offline", label: "OFFLINE", backgroundColor: "#E86D13", icon: "st.Health & Wellness.health9"
         }
 
-        standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+        standardTile("refresh", "device.switch", decoration: "flat", inactiveLabel: false) {
             state "default", label: "", action: "refresh", icon: "st.secondary.refresh"
         }
 
         main(["temperature", "humidity"])
-        details(["temperature", "humidity", "deviceHealth", "refresh"])
+        details(["temperature", "humidity", "refresh", "deviceHealth"])
     }
 }
 
