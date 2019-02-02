@@ -20,8 +20,8 @@ metadata {
         capability "Sensor"
         capability "Health Check"
 
-        command "temperature", ["number"]
-        command "humidity", ["number"]
+        command "temperature"
+        command "humidity"
 
         command "markDeviceOnline"
         command "markDeviceOffline"
@@ -106,25 +106,26 @@ private setDeviceHealth(String healthState) {
 
 private Integer getTemperature() {
     def ts = device.currentState("temperature")
-    Integer currentTemp = DEFAULT_TEMPERATURE
+    Integer currentTemp
     try {
         currentTemp = ts.integerValue
     } catch (all) {
         log.warn "Encountered an error getting Integer value of temperature state. Value is '$ts.stringValue'."
-        sendEvent(name: "temperature", value: null, unit: "°F")
     }
 
     return currentTemp
 }
 
-def temperature(newTemp) {
+def temperature(def newTemp) {
+    log.trace("Setting temparature: $newTemp")
+
     sendEvent(name:"temperature", value: newTemp)
+
+    done()
 }
 
-def humidity(Integer humidityValue) {
-    log.trace "Executing 'setHumidityPercent' to $humidityValue"
-
-    Integer curHum = device.currentValue("humidity") as Integer
+def humidity(def humidityValue) {
+    log.trace("Setting humidity: $humidityValue")`
 
     if (humidityValue != null) {
         Integer hum = boundInt(humidityValue, (0..100))
