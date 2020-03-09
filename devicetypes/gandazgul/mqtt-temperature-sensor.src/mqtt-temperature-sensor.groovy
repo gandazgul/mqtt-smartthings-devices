@@ -14,7 +14,7 @@
  *
  */
 metadata {
-    definition (name: "MQTT Temperature Sensor", namespace: "gandazgul", author: "Carlos Ravelo") {
+    definition (name: "MQTT Temperature Sensor", namespace: "gandazgul", author: "Carlos Ravelo", runLocally: true, minHubCoreVersion: '000.021.00001', executeCommandsLocally: true, mnmn: "SmartThings") {
         capability "Temperature Measurement"
         capability "Relative Humidity Measurement"
         capability "Sensor"
@@ -28,7 +28,7 @@ metadata {
 
         command "setStatus"
 
-        fingerprint profileId: "0104", deviceId: "0302", inClusters: "0000,0001,0003,0009,0402,0405"
+//         fingerprint profileId: "0104", deviceId: "0302", inClusters: "0000,0001,0003,0009,0402,0405"
     }
 
     // simulator metadata
